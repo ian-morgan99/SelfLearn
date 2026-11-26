@@ -1,5 +1,10 @@
 .vscode/**
 .vscode-test/**
+.lmstudio/**
+.lmstudio-context/**
+.github/**
+.git/**
+**/.gitignore
 out/**
 node_modules/**
 src/**
@@ -39,3 +44,5 @@ README_*.md
 START_HERE.md
 API.md
 *.code-workspace
+extension-workflow-learning.json
+build-and-install.bat
