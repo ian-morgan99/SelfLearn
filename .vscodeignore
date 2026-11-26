@@ -46,3 +46,6 @@ API.md
 *.code-workspace
 extension-workflow-learning.json
 build-and-install.bat
+.tmp-patch/**
+tmp/**
+temp/**

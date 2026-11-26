@@ -30,6 +30,7 @@ extension-workflow-learning.json
 npm-debug.log*
 tmp/
 temp/
+.tmp-patch/
 
 # ---------------------------------------------------------------------------
 # Documentation: publish only user-facing docs; keep internal dev/process docs local

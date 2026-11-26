@@ -900,10 +900,7 @@ export class LearningManager {
   }
 
   public async pullLatestLearnings(): Promise<boolean> {
-    const workspacePath =
-      vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || ".";
-    const success =
-      await this.gitSyncManager.pullLatestLearnings(workspacePath);
+    const success = await this.gitSyncManager.pullLatestLearnings();
 
     if (success) {
       // Reload learnings after pulling
@@ -913,6 +910,11 @@ export class LearningManager {
     return success;
   }
 
+  /** Why the last GitHub sync failed, if it did. */
+  public getGitSyncError(): string | undefined {
+    return this.gitSyncManager.lastError;
+  }
+
   public async getGitSyncStatus(): Promise<{
     enabledGitHubSync: boolean;
     isGitRepo: boolean;
@@ -920,10 +922,11 @@ export class LearningManager {
     hasChanges: boolean;
     stagedChanges: number;
     unstagedChanges: number;
+    repoRoot?: string;
+    remote?: string;
+    repoUrl?: string;
   }> {
-    const workspacePath =
-      vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || ".";
-    const status = await this.gitSyncManager.getGitStatus(workspacePath);
+    const status = await this.gitSyncManager.getGitStatus();
 
     return {
       enabledGitHubSync: this.gitSyncManager["enableGitHubSync"],
@@ -1110,14 +1113,16 @@ export class LearningManager {
                   status: "synced",
                 });
               } else {
+                const reason =
+                  this.gitSyncManager.lastError ||
+                  "GitHub sync not fully configured or no changes to commit";
                 console.log(
-                  "[syncToAllDestinations] GitHub sync returned false",
+                  "[syncToAllDestinations] GitHub sync skipped: " + reason,
                 );
                 results.destinations.push({
                   type: "github",
                   status: "skipped",
-                  error:
-                    "Not a git repository or GitHub sync not fully configured",
+                  error: reason,
                 });
               }
             } catch (error) {

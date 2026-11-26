@@ -1,6 +1,6 @@
 # AI Learning Repository
 
-[![Version](https://img.shields.io/badge/version-1.0.21-blue.svg)](https://github.com/ian-morgan99/SelfLearn)
+[![Version](https://img.shields.io/badge/version-1.0.22-blue.svg)](https://github.com/ian-morgan99/SelfLearn)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 A powerful VS Code extension that **automatically captures your AI coding interactions** and builds a personal knowledge base to accelerate your future projects. Works with **GitHub Copilot, Continue, Codex, Microsoft AI Toolkit, and AI Foundry**!
@@ -155,11 +155,20 @@ Easy-to-use settings interface for all features:
 
 ### Optional: Setup GitHub Sync
 
-1. Open Configuration: `Ctrl+Shift+P` → "Configure AI Learning Settings"
-2. Enable "Private GitHub Repository"
-3. Click "Setup Private Repository"
-4. Enter your GitHub Personal Access Token
-5. Done! Your learnings sync automatically across devices
+GitHub sync is available on the free tier. It versions your **learnings storage folder**
+(`ai-learning-repo.customStorageLocation`, or VS Code global storage when unset) — never
+the workspace you happen to have open.
+
+1. Create an empty repository on GitHub (private recommended), e.g. `yourname/ai-learnings`
+2. Set `ai-learning-repo.gitHubRepoUrl` to that URL
+3. Enable `ai-learning-repo.enableGitHubSync` and `ai-learning-repo.gitHubAutoPush`
+4. Optionally run `Setup Private GitHub Repository` to store a PAT for non-interactive pushes.
+   Without a stored token, git's own credential helper (Git Credential Manager) is used.
+5. Run `Sync to GitHub`. The storage folder is initialised as a git repository on first use,
+   local backups are excluded automatically, and everything is committed and pushed.
+
+`Check GitHub Status` reports the storage repo path, branch, remote and access so you can
+confirm the wiring in one step.
 
 ## 📋 Commands
 

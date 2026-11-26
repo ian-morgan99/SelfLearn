@@ -741,20 +741,18 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.commands.registerCommand(
         "ai-learning-repo.gitSyncLearnings",
         async () => {
-          if (!(await requireProAccess("Git sync"))) {
-            return;
-          }
-
-          const workspacePath =
-            vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || ".";
+          // GitHub sync is free for now - re-enable the Pro gate later if needed.
           const success = await learningManager.syncLearningsToGit();
           if (success) {
             vscode.window.showInformationMessage(
               "Learnings synced to Git successfully",
             );
           } else {
+            const reason = learningManager.getGitSyncError();
             vscode.window.showWarningMessage(
-              "Git sync not enabled or no changes to commit",
+              reason
+                ? `Git sync did not run: ${reason}`
+                : "Git sync completed - no changes to commit",
             );
           }
         },
@@ -763,12 +761,7 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.commands.registerCommand(
         "ai-learning-repo.pullLatestLearnings",
         async () => {
-          if (!(await requireProAccess("Git sync"))) {
-            return;
-          }
-
-          const workspacePath =
-            vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || ".";
+          // GitHub sync is free for now - re-enable the Pro gate later if needed.
           const success = await learningManager.pullLatestLearnings();
           if (success) {
             scheduleLearningsRefresh();
@@ -776,8 +769,9 @@ export function activate(context: vscode.ExtensionContext) {
               "Latest learnings pulled from Git",
             );
           } else {
+            const reason = learningManager.getGitSyncError();
             vscode.window.showWarningMessage(
-              "Git sync not enabled or pull failed",
+              reason ? `Git pull failed: ${reason}` : "Git pull did not run",
             );
           }
         },
@@ -786,10 +780,7 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.commands.registerCommand(
         "ai-learning-repo.setupPrivateGitHub",
         async () => {
-          if (!(await requireProAccess("Private GitHub sync"))) {
-            return;
-          }
-
+          // GitHub sync is free for now - re-enable the Pro gate later if needed.
           const token = await vscode.window.showInputBox({
             prompt: "Enter your GitHub Personal Access Token",
             password: true,
@@ -835,10 +826,7 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.commands.registerCommand(
         "ai-learning-repo.checkGitHubStatus",
         async () => {
-          if (!(await requireProAccess("Private GitHub sync"))) {
-            return;
-          }
-
+          // GitHub sync is free for now - re-enable the Pro gate later if needed.
           const status = await learningManager.checkPrivateGitHubStatus();
 
           let statusMessage = "GitHub Repository Status:\n\n";
@@ -848,7 +836,18 @@ export function activate(context: vscode.ExtensionContext) {
 
           if (status.repoUrl) {
             statusMessage += `\nRepository: ${status.repoUrl}`;
+          } else {
+            statusMessage +=
+              "\nNo repository set - configure ai-learning-repo.gitHubRepoUrl.";
           }
+
+          const syncStatus = await learningManager.getGitSyncStatus();
+          statusMessage += `\nStorage repo: ${syncStatus.repoRoot || "unknown"}`;
+          statusMessage += `\nGit repository: ${syncStatus.isGitRepo ? "Yes" : "No"}`;
+          if (syncStatus.branch) {
+            statusMessage += ` (${syncStatus.branch})`;
+          }
+          statusMessage += `\nRemote: ${syncStatus.remote || "none"}`;
 
           vscode.window.showInformationMessage(statusMessage);
         },

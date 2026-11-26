@@ -2,6 +2,29 @@
 
 All notable changes to the "AI Learning Repository" extension will be documented in this file.
 
+## [1.0.22] - 2026-11-26
+
+### Fixed
+- **GitHub sync now works.** Sync previously inspected the first workspace folder for a git
+  repository, so learnings stored outside that folder (e.g. a OneDrive folder or VS Code global
+  storage) were never committed and every sync silently returned "skipped".
+- Sync now targets the learnings storage directory (`ai-learning-repo.customStorageLocation`,
+  falling back to extension global storage) and initialises it as a git repository on first use,
+  including a generated `.gitignore` that keeps local `*.backup-*` files out of the remote.
+- The `origin` remote is created/updated automatically from `ai-learning-repo.gitHubRepoUrl`, so
+  no manual `git remote add` is required.
+- Pushes use stored credentials when available and fall back to the git credential helper, so
+  they no longer hang waiting for an interactive prompt. Rejected pushes are retried after a rebase.
+- Sync failures now surface the real git error in a notification instead of logging to the
+  developer console only.
+
+### Changed
+- **GitHub sync is free.** `Sync to GitHub`, `Pull Latest Learnings`, `Setup Private GitHub
+  Repository` and `Check GitHub Status` no longer require a Pro license. The Pro gate is
+  commented out in `src/extension.ts` for easy re-enable later.
+- `Check GitHub Status` additionally reports the storage repo path, branch, remote URL and
+  repository access.
+
 ## [1.0.21] - 2026-05-21
 
 ### Fixed
