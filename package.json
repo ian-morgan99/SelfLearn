@@ -1,0 +1,571 @@
+{
+	"name": "ai-learning-repo",
+	"displayName": "AI Learning Repository",
+	"description": "Works with Copilot, Continue, Codex, AI Toolkit, Foundry. Query learnings with @learnings. Auto-inject context.",
+	"version": "1.0.21",
+	"publisher": "TheDynamicsFactory",
+	"author": {
+		"name": "Ian Morgan"
+	},
+	"license": "MIT",
+	"icon": "media/icon.png",
+	"galleryBanner": {
+		"color": "#2980b9",
+		"theme": "dark"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ian-morgan99/SelfLearn.git"
+	},
+	"bugs": {
+		"url": "https://github.com/ian-morgan99/SelfLearn/issues"
+	},
+	"homepage": "https://github.com/ian-morgan99/SelfLearn#readme",
+	"engines": {
+		"vscode": "^1.95.0"
+	},
+	"categories": [
+		"Machine Learning",
+		"Other"
+	],
+	"keywords": [
+		"AI",
+		"learning",
+		"copilot-chat",
+		"github-copilot",
+		"continue",
+		"codex",
+		"context",
+		"repository",
+		"github",
+		"knowledge-base",
+		"automation"
+	],
+	"activationEvents": [
+		"onStartupFinished",
+		"onView:learnings-tree",
+		"onView:ai-learning-repo.analyticsView",
+		"onCommand:ai-learning-repo.viewLearnings"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "ai-learning-repo.viewLearnings",
+				"title": "View Learning Repository"
+			},
+			{
+				"command": "ai-learning-repo.exportLearnings",
+				"title": "Export Learnings"
+			},
+			{
+				"command": "ai-learning-repo.clearLearnings",
+				"title": "Clear All Learnings"
+			},
+			{
+				"command": "ai-learning-repo.injectContext",
+				"title": "Inject Learning Context for New Project"
+			},
+			{
+				"command": "ai-learning-repo.importLegacy",
+				"title": "Import Learnings from Legacy Project"
+			},
+			{
+				"command": "ai-learning-repo.captureAIChat",
+				"title": "Capture AI Chat Interaction"
+			},
+			{
+				"command": "ai-learning-repo.captureChatSummary",
+				"title": "Capture Chat Summary"
+			},
+			{
+				"command": "ai-learning-repo.scanChatLearnings",
+				"title": "Scan Active Editor for Chat Learnings"
+			},
+			{
+				"command": "ai-learning-repo.enableAICapture",
+				"title": "Enable AI Interaction Capture"
+			},
+			{
+				"command": "ai-learning-repo.disableAICapture",
+				"title": "Disable AI Interaction Capture"
+			},
+			{
+				"command": "ai-learning-repo.viewAIChatHistory",
+				"title": "View AI Chat History"
+			},
+			{
+				"command": "ai-learning-repo.openSettings",
+				"title": "Configure AI Learning Repository Settings"
+			},
+			{
+				"command": "ai-learning-repo.enterLicenseKey",
+				"title": "Enter License Key"
+			},
+			{
+				"command": "ai-learning-repo.checkLicenseStatus",
+				"title": "Check License Status"
+			},
+			{
+				"command": "ai-learning-repo.clearLicenseKey",
+				"title": "Clear License Key"
+			},
+			{
+				"command": "ai-learning-repo.enableTestLicenseOverride",
+				"title": "Enable Test License Override"
+			},
+			{
+				"command": "ai-learning-repo.gitSyncLearnings",
+				"title": "Sync Learnings to Git"
+			},
+			{
+				"command": "ai-learning-repo.pullLatestLearnings",
+				"title": "Pull Latest Learnings from Git"
+			},
+			{
+				"command": "ai-learning-repo.setupPrivateGitHub",
+				"title": "Setup Private GitHub Repository"
+			},
+			{
+				"command": "ai-learning-repo.checkGitHubStatus",
+				"title": "Check GitHub Repository Status"
+			},
+			{
+				"command": "ai-learning-repo.setupCloudSync",
+				"title": "Setup Cloud Sync for Learnings"
+			},
+			{
+				"command": "ai-learning-repo.pushAllLearningsToSync",
+				"title": "Push All Learnings to Sync Destinations"
+			},
+			{
+				"command": "ai-learning-repo.enrichAllLearnings",
+				"title": "Enrich All Learnings with Metadata"
+			},
+			{
+				"command": "ai-learning-repo.quickCapture",
+				"title": "Quick Capture Current Code as Learning"
+			},
+			{
+				"command": "ai-learning-repo.togglePasteDetection",
+				"title": "Toggle Paste Detection"
+			},
+			{
+				"command": "ai-learning-repo.toggleAICommentDetection",
+				"title": "Toggle AI Comment Detection"
+			},
+			{
+				"command": "ai-learning-repo.queryLearningsForContinue",
+				"title": "Query Learnings (Continue Integration)"
+			},
+			{
+				"command": "ai-learning-repo.copyContextForCodex",
+				"title": "Copy Context for Codex/OpenAI"
+			}
+		],
+		"chatParticipants": [
+			{
+				"id": "ai-learning-repo.learnings",
+				"name": "learnings",
+				"description": "Works with Copilot, Continue, Codex, AI Toolkit, and Foundry",
+				"isSticky": true
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "aiLearningRepoView",
+					"title": "AI Learning Repository",
+					"icon": "media/learning.svg"
+				}
+			]
+		},
+		"views": {
+			"aiLearningRepoView": [
+				{
+					"id": "learnings-tree",
+					"name": "Recent Learnings"
+				},
+				{
+					"id": "ai-learning-repo.analyticsView",
+					"type": "webview",
+					"name": "📊 Analytics"
+				}
+			]
+		},
+		"keybindings": [
+			{
+				"command": "ai-learning-repo.quickCapture",
+				"key": "ctrl+shift+l",
+				"mac": "cmd+shift+l",
+				"when": "editorTextFocus"
+			}
+		],
+		"configuration": {
+			"title": "AI Learning Repository",
+			"properties": {
+				"ai-learning-repo.autoCapture": {
+					"type": "boolean",
+					"default": true,
+					"description": "Automatically capture AI interactions"
+				},
+				"ai-learning-repo.captureAIInteractions": {
+					"type": "boolean",
+					"default": true,
+					"description": "Capture interactions from GitHub Copilot Chat, Continue, and AI Foundry"
+				},
+				"ai-learning-repo.captureCopilot": {
+					"type": "boolean",
+					"default": true,
+					"description": "Capture GitHub Copilot Chat interactions"
+				},
+				"ai-learning-repo.captureContinue": {
+					"type": "boolean",
+					"default": true,
+					"description": "Capture Continue extension interactions"
+				},
+				"ai-learning-repo.captureFoundry": {
+					"type": "boolean",
+					"default": true,
+					"description": "Capture AI Foundry chat interactions"
+				},
+				"ai-learning-repo.captureCodex": {
+					"type": "boolean",
+					"default": false,
+					"description": "Capture OpenAI Codex interactions"
+				},
+				"ai-learning-repo.captureClaude": {
+					"type": "boolean",
+					"default": false,
+					"description": "Capture Anthropic Claude interactions"
+				},
+				"ai-learning-repo.captureGemini": {
+					"type": "boolean",
+					"default": false,
+					"description": "Capture Google Gemini interactions"
+				},
+				"ai-learning-repo.captureLlama": {
+					"type": "boolean",
+					"default": false,
+					"description": "Capture Meta Llama interactions"
+				},
+				"ai-learning-repo.captureBlackbox": {
+					"type": "boolean",
+					"default": false,
+					"description": "Capture Blackbox AI code search interactions"
+				},
+				"ai-learning-repo.enableMicrosoftStack": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enable learning capture for Microsoft Dynamics and Power Platform"
+				},
+				"ai-learning-repo.captureBusinessCentral": {
+					"type": "boolean",
+					"default": false,
+					"description": "Capture Business Central customization learnings"
+				},
+				"ai-learning-repo.captureFinanceSupplyChain": {
+					"type": "boolean",
+					"default": false,
+					"description": "Capture Finance & Supply Chain Management learnings"
+				},
+				"ai-learning-repo.capturePowerPlatform": {
+					"type": "boolean",
+					"default": false,
+					"description": "Capture Power Platform (PowerApps, Power Automate, Power BI) learnings"
+				},
+				"ai-learning-repo.captureAzure": {
+					"type": "boolean",
+					"default": false,
+					"description": "Capture Azure services and integration learnings"
+				},
+				"ai-learning-repo.minInteractionLength": {
+					"type": "number",
+					"default": 10,
+					"description": "Minimum length of interaction to capture (characters)"
+				},
+				"ai-learning-repo.captureComments": {
+					"type": "boolean",
+					"default": true,
+					"description": "Capture inline comments from AI suggestions"
+				},
+				"ai-learning-repo.maxStorageSize": {
+					"type": "number",
+					"default": 1000,
+					"description": "Maximum number of learnings to store"
+				},
+				"ai-learning-repo.enableContextInjection": {
+					"type": "boolean",
+					"default": true,
+					"description": "Automatically inject relevant context in new projects"
+				},
+				"ai-learning-repo.contextSensitivity": {
+					"type": "string",
+					"enum": [
+						"low",
+						"medium",
+						"high"
+					],
+					"default": "medium",
+					"description": "How aggressive context injection should be"
+				},
+				"ai-learning-repo.minContextConfidenceThreshold": {
+					"type": "number",
+					"default": 60,
+					"minimum": 0,
+					"maximum": 100,
+					"description": "Minimum confidence score for context suggestions (%)"
+				},
+				"ai-learning-repo.maxContextResultsPerSearch": {
+					"type": "number",
+					"default": 10,
+					"minimum": 1,
+					"maximum": 50,
+					"description": "Maximum context results to return per search"
+				},
+				"ai-learning-repo.autoBackupEnabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "Automatically backup learnings"
+				},
+				"ai-learning-repo.autoBackupFrequencyDays": {
+					"type": "number",
+					"default": 7,
+					"minimum": 1,
+					"maximum": 30,
+					"description": "How often to backup (days)"
+				},
+				"ai-learning-repo.autoBackupRetentionDays": {
+					"type": "number",
+					"default": 30,
+					"minimum": 1,
+					"maximum": 365,
+					"description": "How long to keep backups (days)"
+				},
+				"ai-learning-repo.enableAutoCleanup": {
+					"type": "boolean",
+					"default": false,
+					"description": "Automatically clean up old or unused learnings"
+				},
+				"ai-learning-repo.autoCleanupIntervalDays": {
+					"type": "number",
+					"default": 30,
+					"minimum": 1,
+					"maximum": 365,
+					"description": "Run auto-cleanup every N days"
+				},
+				"ai-learning-repo.enablePasteDetection": {
+					"type": "boolean",
+					"default": true,
+					"description": "Detect large code pastes (likely from AI) and suggest capture"
+				},
+				"ai-learning-repo.enableAICommentDetection": {
+					"type": "boolean",
+					"default": true,
+					"description": "Detect AI marker comments (e.g., // AI:) and suggest capture"
+				},
+				"ai-learning-repo.pasteDetectionThreshold": {
+					"type": "number",
+					"default": 50,
+					"minimum": 10,
+					"maximum": 500,
+					"description": "Minimum lines to trigger paste detection"
+				},
+				"ai-learning-repo.removeUnusedLearningsAfterDays": {
+					"type": "number",
+					"default": 90,
+					"minimum": 1,
+					"maximum": 365,
+					"description": "Remove learnings unused for this many days"
+				},
+				"ai-learning-repo.minReliabilityToKeep": {
+					"type": "number",
+					"default": 30,
+					"minimum": 0,
+					"maximum": 100,
+					"description": "Minimum reliability score to keep during cleanup"
+				},
+				"ai-learning-repo.enableVectorIndexing": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enable vector-based semantic search (experimental)"
+				},
+				"ai-learning-repo.enableSemanticTags": {
+					"type": "boolean",
+					"default": false,
+					"description": "Auto-generate semantic tags (experimental)"
+				},
+				"ai-learning-repo.enableConceptMapping": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable concept mapping and relationships"
+				},
+				"ai-learning-repo.batchProcessingSize": {
+					"type": "number",
+					"default": 50,
+					"minimum": 10,
+					"maximum": 500,
+					"description": "Batch size for processing operations"
+				},
+				"ai-learning-repo.enableIncrementalIndexing": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable incremental indexing for better performance"
+				},
+				"ai-learning-repo.indexingScheduleHour": {
+					"type": "number",
+					"default": 2,
+					"minimum": 0,
+					"maximum": 23,
+					"description": "Hour of day to run indexing (0-23)"
+				},
+				"ai-learning-repo.enableAnonymousAnalytics": {
+					"type": "boolean",
+					"default": false,
+					"description": "Send anonymous usage analytics"
+				},
+				"ai-learning-repo.trackUsageMetrics": {
+					"type": "boolean",
+					"default": true,
+					"description": "Track local usage metrics"
+				},
+				"ai-learning-repo.licenseVerificationUrl": {
+					"type": "string",
+					"default": "",
+					"description": "License verification endpoint URL (used to validate Pro keys)"
+				},
+				"ai-learning-repo.licenseStatus": {
+					"type": "string",
+					"enum": [
+						"free",
+						"trial",
+						"licensed"
+					],
+					"default": "free",
+					"description": "Current license status (managed by the extension)"
+				},
+				"ai-learning-repo.featureTier": {
+					"type": "string",
+					"enum": [
+						"free",
+						"pro",
+						"enterprise"
+					],
+					"default": "free",
+					"description": "Current feature tier (managed by the extension)"
+				},
+				"ai-learning-repo.allowProdLicenseOverride": {
+					"type": "boolean",
+					"default": false,
+					"description": "Allow a temporary production override key for testing (remove before release)"
+				},
+				"ai-learning-repo.licenseProdOverrideKey": {
+					"type": "string",
+					"default": "",
+					"description": "Temporary production override key used for testing (remove before release)"
+				},
+				"ai-learning-repo.customStorageLocation": {
+					"type": "string",
+					"default": "",
+					"description": "Custom path for learnings storage (e.g., OneDrive, Google Drive, Dropbox folder). Leave empty to use VS Code global storage."
+				},
+				"ai-learning-repo.enableGitHubSync": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enable automatic Git sync - commits learnings.json after each update"
+				},
+				"ai-learning-repo.gitHubAutoCommit": {
+					"type": "boolean",
+					"default": true,
+					"description": "Automatically commit changes to Git when learnings are updated"
+				},
+				"ai-learning-repo.gitHubAutoPush": {
+					"type": "boolean",
+					"default": false,
+					"description": "Automatically push commits to GitHub (requires proper git setup)"
+				},
+				"ai-learning-repo.gitHubSyncBranch": {
+					"type": "string",
+					"default": "main",
+					"description": "Git branch to sync learnings to (e.g., main, develop, learnings)"
+				},
+				"ai-learning-repo.enablePrivateGitHubRepo": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enable private GitHub repository for secure learnings storage (recommended for sensitive data)"
+				},
+				"ai-learning-repo.gitHubRepoUrl": {
+					"type": "string",
+					"default": "",
+					"description": "Private GitHub repository URL (e.g., https://github.com/username/ai-learnings). Leave empty to auto-create."
+				},
+				"ai-learning-repo.gitHubAutoCreateRepo": {
+					"type": "boolean",
+					"default": false,
+					"description": "Automatically create a private GitHub repository if one doesn't exist"
+				},
+				"ai-learning-repo.gitHubRepositoryDescription": {
+					"type": "string",
+					"default": "AI Learning Repository - Private learnings and insights from AI-assisted development",
+					"description": "Description for auto-created GitHub repository"
+				},
+				"ai-learning-repo.syncDestinations": {
+					"type": "array",
+					"default": [],
+					"items": {
+						"type": "object",
+						"properties": {
+							"type": {
+								"type": "string",
+								"enum": [
+									"cloud-folder",
+									"github",
+									"backup"
+								]
+							},
+							"path": {
+								"type": "string"
+							},
+							"enabled": {
+								"type": "boolean"
+							},
+							"lastSync": {
+								"type": "number"
+							},
+							"frequency": {
+								"type": "number"
+							},
+							"error": {
+								"type": "string"
+							}
+						}
+					},
+					"description": "Configured sync destinations for cloud and GitHub backup"
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run esbuild-base -- --minify",
+		"esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+		"esbuild": "npm run esbuild-base -- --sourcemap",
+		"esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+		"test": "node ./out/test/runTest.js",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./"
+	},
+	"devDependencies": {
+		"@types/mocha": "^10.0.7",
+		"@types/node": "20.x",
+		"@types/uuid": "^10.0.0",
+		"@types/vscode": "^1.95.0",
+		"@vscode/test-electron": "^2.3.8",
+		"esbuild": "^0.19.11",
+		"mocha": "^10.2.0",
+		"typescript": "^5.3.3"
+	},
+	"dependencies": {
+		"sqlite3": "^5.1.6",
+		"uuid": "^9.0.1"
+	}
+}

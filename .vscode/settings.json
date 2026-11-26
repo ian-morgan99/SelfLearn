@@ -1,0 +1,22 @@
+{
+	"python.linting.enabled": true,
+	"editor.formatOnSave": true,
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"files.watcherExclude": {
+		"**/artifacts/ado-repos/**": true,
+		"**/test-assets/drafts/al/**": true
+	},
+	"files.exclude": {
+		"**/artifacts/ado-repos/**": true,
+		"**/test-assets/drafts/al/**": true
+	},
+	"search.exclude": {
+		"**/artifacts/ado-repos/**": true,
+		"**/test-assets/drafts/al/**": true
+	}
+}

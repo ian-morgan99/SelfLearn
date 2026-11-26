@@ -1,0 +1,42 @@
+out
+dist
+node_modules
+.vscode-test/
+*.vsix
+.env
+.env.*
+.DS_Store
+
+# Local assistant / tooling state (may contain conversation data)
+.lmstudio/
+.lmstudio-context/
+.copilot/
+
+# Credentials and secrets
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.json
+credentials.json
+
+# Captured learning data (personal knowledge base - keep local unless intentionally synced)
+learnings.json
+learnings/
+extension-workflow-learning.json
+
+# Logs and temp
+*.log
+npm-debug.log*
+tmp/
+temp/
+
+# ---------------------------------------------------------------------------
+# Documentation: publish only user-facing docs; keep internal dev/process docs local
+# ---------------------------------------------------------------------------
+/*.md
+!/README.md
+!/CHANGELOG.md
+!/SECURITY_AND_PORTABILITY.md
+Ideas/
+*.code-workspace
